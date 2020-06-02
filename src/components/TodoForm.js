@@ -40,7 +40,7 @@ class ListForm extends React.Component {
 
             <button className="submit">Add</button>
             
-            <button className="clear">Clear Completed</button>
+            <button className="clear" onClick={this.props.clearCompleted}>Clear Completed</button>
             </form>
         )
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ListForm from "./components/TodoForm"
 import TodoList from "./components/TodoList"
-import Todo from './components/Todo';
+
 
 
 
@@ -26,7 +26,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      TodoItemList
+      TodoItemList: TodoItemList
     };
   }
 
@@ -47,7 +47,7 @@ class App extends React.Component {
 
   toggleTask = id => {
     this.setState({
-      TodoItemList: this.state.TodoItemList(task => {
+      TodoItemList: this.state.TodoItemList.map(task => {
         if (task.id === id) {
           return {
             ...task,
@@ -60,14 +60,22 @@ class App extends React.Component {
     })
   }
 
+
+  clearCompleted = event => {
+    event.preventDefault();
+
+    this.setState({
+      TodoItemList: this.state.TodoItemList.filter(task => !task.completed)
+    })
+  }
+
   render() {
     return (
       <div>
         <h1>Welcome to your Todo List!</h1>
-          <ListForm addTodo={this.addTodo}/>
+          <ListForm addTodo={this.addTodo} clearCompleted={this.clearCompleted}/>
         <div>
           <TodoList TodoItemList={this.state.TodoItemList} toggleTask={this.toggleTask}/>
-          <Todo key={this.state.TodoItemList.id} toggleTask={this.toggleTask} TodoItemList={TodoItemList}/>
         </div>
       </div>
     );
